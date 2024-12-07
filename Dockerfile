@@ -1,19 +1,14 @@
-# Use official nginx image from the Docker Hub as the base image
+# Gunakan image Nginx resmi dari Docker Hub sebagai base image
 FROM nginx:alpine
 
-# Set the working directory
-WORKDIR /usr/share/nginx/html
+# Salin file konfigurasi nginx yang telah dimodifikasi ke dalam container
+COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 
-# Copy the content of the public folder into the nginx html directory
-COPY ./public/ /usr/share/nginx/html/
+# Salin seluruh project ke dalam direktori html di Nginx
+COPY . /usr/share/nginx/html
 
-# Copy other necessary files (if any) like src or config files
-COPY ./src /usr/share/nginx/src
-COPY ./package.json /usr/share/nginx/package.json
-COPY ./README.md /usr/share/nginx/README.md
-
-# Expose port 80 to access the app via the browser
+# Expose port 80 agar dapat diakses dari luar container
 EXPOSE 80
 
-# Run the nginx server to serve your files
+# Jalankan Nginx di background
 CMD ["nginx", "-g", "daemon off;"]
