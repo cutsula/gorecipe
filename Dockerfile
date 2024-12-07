@@ -1,14 +1,8 @@
-# Use official nginx image from the Docker Hub as the base image
-FROM nginx:alpine
+# Use NGINX as the base image
+FROM nginx:latest
 
-# Set the working directory
-WORKDIR /usr/share/nginx/html
+# Copy your application files into the NGINX server directory
+COPY ./src /usr/share/nginx/html
 
-# Copy your project files into the nginx directory
-COPY . .
-
-# Expose port 80 to access the app via the browser
+# Expose port 80 for the NGINX server
 EXPOSE 80
-
-# Run the nginx server to serve your files
-CMD ["nginx", "-g", "daemon off;"]
