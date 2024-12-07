@@ -1,14 +1,14 @@
 # Gunakan image resmi nginx dari Docker Hub sebagai base image
 FROM nginx:alpine
 
-# Set direktori kerja untuk menyimpan file aplikasi yang disalin
+# Set direktori kerja di dalam container untuk NGINX
 WORKDIR /usr/share/nginx/html
 
-# Salin file dari folder public ke dalam folder html di nginx
-COPY ./public /usr/share/nginx/html
+# Salin seluruh proyek ke dalam container
+COPY . /usr/share/nginx/html
 
-# Ekspose port 80 untuk dapat mengakses aplikasi melalui browser
+# Ekspose port 80 untuk mengakses aplikasi lewat browser
 EXPOSE 80
 
-# Jalankan nginx di foreground (tidak sebagai daemon)
+# Jalankan nginx untuk melayani file
 CMD ["nginx", "-g", "daemon off;"]
